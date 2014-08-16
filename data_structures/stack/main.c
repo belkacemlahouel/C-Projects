@@ -38,7 +38,7 @@ typedef enum _Boolean {
  ***/
 
 Node* create_node(int _value) {
-    Node* new_node = malloc(sizeof(int) + sizeof(Node*));
+    Node* new_node = (Node*) malloc(sizeof(Node));
     new_node->value = _value;
     new_node->next = NULL;
     return new_node;
@@ -55,6 +55,7 @@ Node* remove_node(Node* _node) {
         Node* tmp = _node->next;
         _node->value = 0;
         _node->next = NULL;
+		free(_node);
         return tmp;
     } else return NULL;
 }
