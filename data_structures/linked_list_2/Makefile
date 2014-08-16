@@ -1,7 +1,7 @@
 CXX = gcc
 FLAGS = 
-FILES = _test_bool.c
-EXE = _test_bool 
+FILES = main.c
+EXE = _test_ll_2 
 
 exe: all
 	@echo "Executing " $(EXE)

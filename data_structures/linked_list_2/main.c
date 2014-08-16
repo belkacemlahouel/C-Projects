@@ -52,7 +52,7 @@ typedef enum _Boolean {
  ***/
 
 Node* create_node(int _value) {
-    Node* new_node = malloc(sizeof(int) + sizeof(Node*)*2);
+    Node* new_node = (Node*) malloc(sizeof(Node));
     new_node->value = _value;
     new_node->next = NULL;
     new_node->prev = NULL;
@@ -78,6 +78,7 @@ Node* remove_node(Node* _node) {
         _node->value = 0;
         _node->next = NULL;
         _node->prev = NULL;
+		free(_node);
         return tmp;
     } else return NULL;
 }
@@ -89,7 +90,7 @@ Node* remove_node(Node* _node) {
  ***/
 
 Boolean is_empty(LinkedList _ll) {
-    if (_ll.nb_nodes <= 0) {
+    if (_ll.nb_nodes == 0) {
         return TRUE;
     }
     return FALSE;
@@ -102,7 +103,7 @@ Boolean is_empty(LinkedList _ll) {
 
 LinkedList init_linkedlist() {
     LinkedList new_ll;
-    new_ll.first_node = NULL;
+	new_ll.first_node = NULL;
     new_ll.last_node = NULL;
     new_ll.nb_nodes = 0;
     return new_ll;
@@ -169,6 +170,7 @@ LinkedList add_tail(LinkedList _ll, int _new_value) {
 LinkedList remove_head(LinkedList _ll) {
     if (is_empty(_ll) == FALSE) {
         _ll.first_node = remove_node(_ll.first_node);
+		_ll.first_node->prev = NULL;
         -- _ll.nb_nodes;
     }
     return _ll;
@@ -219,10 +221,12 @@ void print_linkedlist(LinkedList _ll) {
  ***/
 
 int main(int argc, char** argv) {
-    LinkedList tmp_ll = init_linkedlist();
+	LinkedList tmp_ll = init_linkedlist();
 
     tmp_ll = remove_head(tmp_ll); // EMPTY
     tmp_ll = add_head(tmp_ll, 13); // 13 (1 node)
+	print_linkedlist(tmp_ll);
+
     tmp_ll = add_head(tmp_ll, 14); // 14->13 (2 nodes)
     tmp_ll = remove_head(tmp_ll); // 13 (1 node)
     tmp_ll = add_tail(tmp_ll, 17); // 13->17 (2 nodes)
