@@ -4,8 +4,12 @@
  * Summer 2014
  *****/
 
+#ifndef __BOOL__
+#define __BOOL__
+
 typedef enum {
 	TRUE,
 	FALSE
 } Boolean;
 
+#endif // __BOOL__
