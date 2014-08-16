@@ -5,7 +5,7 @@
 void bIsWhat(Boolean);
 
 int main(int argc, char** argv) {
-	Boolean b;
+	Boolean b = TRUE;
 	
 	printf("Hello World!\n");
 

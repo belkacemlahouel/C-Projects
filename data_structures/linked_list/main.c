@@ -35,7 +35,7 @@ typedef enum _Boolean {
  ***/
 
 Node* create_node(int _value) {
-    Node* new_node = malloc(sizeof(int) + sizeof(Node*));
+    Node* new_node = (Node*) malloc(sizeof(Node));
     new_node->value = _value;
     new_node->next = NULL;
     return new_node;
@@ -72,12 +72,23 @@ Boolean is_empty(LinkedList _ll) {
 /***
  * Creation of a LinkedList with a first int.
  * Returns a pointer on this (first element) LinkedList.
+ * @deprecated Better use init_linkedlist with add_head/add_tail.
  ***/
 
 LinkedList create_linkedlist(int _first_value) {
     Node* first_element = create_node(_first_value);
     LinkedList new_ll = first_element;
     return new_ll;
+}
+
+/***
+ * Initialization of a LinkedList with nothing.
+ * Returns a pointer on this newly created LinkedList.
+ ***/
+
+LinkedList init_linkedlist() {
+	LinkedList new_ll = NULL;
+	return new_ll;
 }
 
 /***
@@ -99,7 +110,7 @@ LinkedList empty_linkedlist(LinkedList _ll) {
  ***/
 
 LinkedList add_head(LinkedList _ll, int _new_value) {
-    Node* new_node = create_node(_new_value);
+	Node* new_node = create_node(_new_value);
     new_node->next = _ll;
     _ll = new_node;
     return _ll;
@@ -180,13 +191,16 @@ void print_linkedlist(LinkedList _ll) {
  ***/
 
 int main(int argc, char** argv) {
-    LinkedList tmp_ll = create_linkedlist(12);
+	LinkedList tmp_ll = init_linkedlist();
+	tmp_ll = add_head(tmp_ll, 14);
+	tmp_ll = add_head(tmp_ll, 17);
+	print_linkedlist(tmp_ll);
 
-    tmp_ll = add_head(tmp_ll, 13);
+    /* tmp_ll = add_head(tmp_ll, 13);
     tmp_ll = add_head(tmp_ll, 14);
     tmp_ll = remove_head(tmp_ll);
     tmp_ll = add_tail(tmp_ll, 17);
-    tmp_ll = remove_tail(tmp_ll);
+    tmp_ll = remove_tail(tmp_ll);*/
     tmp_ll = empty_linkedlist(tmp_ll);
 
     print_linkedlist(tmp_ll);
