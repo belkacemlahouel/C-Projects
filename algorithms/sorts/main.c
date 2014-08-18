@@ -4,7 +4,8 @@
  * 08/2014
  * belkacem.lahouel@utbm.fr
  *
- * Code for classic sorting algorithms.
+ * C implementation of classic sorting algorithms and other functions.
+ * Works on an array of size MAX_SIZE (pre-processor constant defined).
  ***/
 
 #include <stdio.h>
@@ -12,7 +13,7 @@
 #include <time.h>
 
 /***
- * Constant definition for maximal array size
+ * Constant definition for maximal array size.
  ***/
 
 #define MAX_SIZE 25
@@ -27,7 +28,7 @@ typedef enum _Boolean {
 } Boolean;
 
 /***
- * Fills the array with numbers in order between 1 and MAX_SIZE
+ * Fills the array with numbers in order between 1 and MAX_SIZE.
  ***/
 
 void fill_order(int _array[MAX_SIZE]) {
@@ -38,7 +39,7 @@ void fill_order(int _array[MAX_SIZE]) {
 }
 
 /***
- * Fills the array with random numbers between 1 and 99
+ * Fills the array with random numbers between 1 and 99.
  ***/
 
 void fill_randomly(int _array[MAX_SIZE]) {
@@ -49,7 +50,7 @@ void fill_randomly(int _array[MAX_SIZE]) {
 }
 
 /***
- * Swaps two integers using their indexes in this array
+ * Swaps two integers using their indexes in this array.
  ***/
 
 void swap(int _array[MAX_SIZE], int _a, int _b) {
@@ -59,7 +60,8 @@ void swap(int _array[MAX_SIZE], int _a, int _b) {
 }
 
 /***
- * Shuffles the array properly using Fisher-Yates' algorithm
+ * Shuffles the array properly using Fisher-Yates' algorithm.
+ * (aka Knuth Shuffle).
  ***/
 
 void shuffle(int _array[MAX_SIZE]) {
@@ -71,7 +73,7 @@ void shuffle(int _array[MAX_SIZE]) {
 }
 
 /***
- * Prints the whole array
+ * Prints the whole array.
  ***/
 
 void print_array(int _array[]) {
@@ -84,6 +86,44 @@ void print_array(int _array[]) {
 }
 
 /***
+ * Insertion sort implementation.
+ ***/
+
+void insertion_sort(int _a[]) {
+    int limit, iter;
+    for (limit = 1; limit < MAX_SIZE; ++limit) {
+
+    }
+}
+
+/***
+ * Selection sort implementation.
+ * We perfom MAX_SIZE iterations.
+ * And each time we put the smallest element at the beginning.
+ * Works fine but is that the best solution for this sort?
+ ***/
+
+void selection_sort(int _a[]) {
+    for (int limit = 0; limit < MAX_SIZE; ++limit) {
+        int smallest_index = limit;
+        for (int iter = limit; iter < MAX_SIZE; ++iter) {
+            if (_a[smallest_index] > _a[iter]) {
+                smallest_index = iter;
+            }
+        }
+        swap(_a, smallest_index, limit);
+    }
+}
+
+/***
+ * Bubble sort implementation.
+ ***/
+
+void bubble_sort(int _a[]) {
+
+}
+
+/***
  * Main function used to test those algorithms on an array of int.
  ***/
 
@@ -93,10 +133,10 @@ int main(int argc, char** argv) {
     srand(time(NULL));
 
     fill_randomly(tmp);
-    print_array(tmp);
     fill_order(tmp);
-    print_array(tmp);
     shuffle(tmp);
+    selection_sort(tmp);
+
     print_array(tmp);
 
     return EXIT_SUCCESS;
