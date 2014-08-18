@@ -6,6 +6,12 @@
  *
  * C implementation of classic sorting algorithms and other functions.
  * Works on an array of size MAX_SIZE (pre-processor constant defined).
+ *
+ * @todo
+ * Instead of defining MAX_SIZE as a pre-processor constant,
+ * we can define a new data-type: VectorInt (as an example).
+ * And when we create (initialization) such an object,
+ * we would precise its size, and only then the array is created.
  ***/
 
 #include <stdio.h>
@@ -55,9 +61,11 @@ void fill_randomly(int _array[MAX_SIZE]) {
  ***/
 
 void swap(int _array[MAX_SIZE], int _a, int _b) {
-    int tmp = _array[_a];
-    _array[_a] = _array[_b];
-    _array[_b] = tmp;
+    if (_array[_a] != _array[_b]) {
+        int tmp = _array[_a];
+        _array[_a] = _array[_b];
+        _array[_b] = tmp;
+    }
 }
 
 /***
@@ -88,10 +96,21 @@ void print_array(int _array[]) {
 
 /***
  * Insertion sort implementation.
+ * We find the smallest element among what is left.
+ * We place it at the right place, and so on.
+ * Until there is nothing left to sort.
  ***/
 
 void insertion_sort(int _a[]) {
-
+    for (int limit = 0; limit < MAX_SIZE; ++limit) {
+        int smallest = limit;
+        for (int iter = limit; iter < MAX_SIZE; ++iter) {
+            if (_a[smallest] > _a[iter]) {
+                smallest = iter;
+            }
+        }
+        swap(_a, smallest, limit);
+    }
 }
 
 /***
@@ -145,15 +164,18 @@ int main(int argc, char** argv) {
 
     shuffle(tmp);
     selection_sort(tmp); // OK
+    printf("SELEC. ");
     print_array(tmp);
 
     shuffle(tmp);
     insertion_sort(tmp); // TODO
+    printf("INSER. ");
     print_array(tmp);
 
 
     shuffle(tmp);
-    bubble_sort(tmp); // NOT OK!!
+    bubble_sort(tmp); // OK
+    printf("BUBBLE ");
     print_array(tmp);
 
     return EXIT_SUCCESS;
