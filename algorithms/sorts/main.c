@@ -29,6 +29,7 @@ typedef enum _Boolean {
 
 /***
  * Fills the array with numbers in order between 1 and MAX_SIZE.
+ * This is more convenient when checking if an array is sorted.
  ***/
 
 void fill_order(int _array[MAX_SIZE]) {
@@ -90,10 +91,7 @@ void print_array(int _array[]) {
  ***/
 
 void insertion_sort(int _a[]) {
-    int limit, iter;
-    for (limit = 1; limit < MAX_SIZE; ++limit) {
 
-    }
 }
 
 /***
@@ -117,10 +115,21 @@ void selection_sort(int _a[]) {
 
 /***
  * Bubble sort implementation.
+ * We compare neighbours together and we swap them if necessary.
+ * If there is no swapping, the array is sorted.
  ***/
 
 void bubble_sort(int _a[]) {
-
+    Boolean swapped = TRUE;
+    while (swapped == TRUE) {
+        swapped = FALSE;
+        for (int i = 0; i < MAX_SIZE-1; ++i) {
+            if (_a[i] > _a[i+1]) {
+                swap(_a, i, i+1);
+                swapped = TRUE;
+            }
+        }
+    }
 }
 
 /***
@@ -132,11 +141,19 @@ int main(int argc, char** argv) {
 
     srand(time(NULL));
 
-    fill_randomly(tmp);
     fill_order(tmp);
-    shuffle(tmp);
-    selection_sort(tmp);
 
+    shuffle(tmp);
+    selection_sort(tmp); // OK
+    print_array(tmp);
+
+    shuffle(tmp);
+    insertion_sort(tmp); // TODO
+    print_array(tmp);
+
+
+    shuffle(tmp);
+    bubble_sort(tmp); // NOT OK!!
     print_array(tmp);
 
     return EXIT_SUCCESS;
